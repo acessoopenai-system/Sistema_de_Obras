@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Sistema de Obras — Relatórios</title>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="assets/img/logo.svg" alt="Logo" width="24" height="24">
+      <span>Sistema de Obras</span>
+    </div>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="obras.html">Obras</a>
+      <a href="relatorios.html" class="active">Relatórios</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">Relatórios</div>
+      <div class="toolbar">
+        <select>
+          <option>Período: Mês atual</option>
+          <option>Últimos 3 meses</option>
+          <option>Últimos 12 meses</option>
+        </select>
+        <button>Gerar</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="card">
+        <h3 class="section-title">Resumo financeiro</h3>
+        <table class="table">
+          <thead><tr><th>Obra</th><th>Previsto</th><th>Realizado</th><th>Variação</th></tr></thead>
+          <tbody>
+            <tr><td>Residencial Jardim</td><td>R$ 388.000</td><td>R$ 142.300</td><td>-</td></tr>
+            <tr><td>Comercial Centro</td><td>R$ 520.000</td><td>R$ 210.900</td><td>-</td></tr>
+          </tbody>
+        </table>
+        <div class="toolbar" style="margin-top:12px;">
+          <button>Exportar PDF</button>
+          <button class="ghost">Exportar CSV</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

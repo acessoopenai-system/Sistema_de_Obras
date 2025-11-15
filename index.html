@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Sistema de Obras — Dashboard</title>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="assets/img/logo.svg" alt="Logo" width="24" height="24">
+      <span>Sistema de Obras</span>
+    </div>
+    <nav>
+      <a href="index.html" class="active">Dashboard</a>
+      <a href="obras.html">Obras</a>
+      <a href="relatorios.html">Relatórios</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">Dashboard</div>
+      <div class="toolbar">
+        <input type="search" placeholder="Buscar...">
+        <button class="ghost">Notificações</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="kpi">
+        <div class="card item">
+          <div class="label">Obras em andamento</div>
+          <div class="value">12</div>
+        </div>
+        <div class="card item">
+          <div class="label">Obras concluídas</div>
+          <div class="value">34</div>
+        </div>
+        <div class="card item">
+          <div class="label">Custo acumulado (mês)</div>
+          <div class="value">R$ 482.300</div>
+        </div>
+        <div class="card item">
+          <div class="label">Etapas atrasadas</div>
+          <div class="value"><span class="badge" style="background: #2c1d1d;">5</span></div>
+        </div>
+      </div>
+
+      <div class="grid" style="grid-template-columns: 2fr 1fr;">
+        <div class="card">
+          <h3 class="section-title">Cronograma geral</h3>
+          <p class="label">Linha do tempo com marcos principais das obras.</p>
+          <div class="grid" style="grid-template-columns: repeat(4,1fr);">
+            <div class="card"><div class="label">Fundação</div><div>Concluída</div></div>
+            <div class="card"><div class="label">Estrutura</div><div>Em andamento</div></div>
+            <div class="card"><div class="label">Instalações</div><div>Atrasada</div></div>
+            <div class="card"><div class="label">Acabamento</div><div>Prevista</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="section-title">Alertas</h3>
+          <ul>
+            <li>Obra #018 — Etapa “Instalações Elétricas” atrasada</li>
+            <li>Obra #011 — Custo ultrapassou orçamento em 8%</li>
+            <li>Fornecedor “Betoneira Sul” — Entrega atrasada</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

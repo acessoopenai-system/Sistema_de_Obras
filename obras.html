@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Sistema de Obras — Obras</title>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="assets/img/logo.svg" alt="Logo" width="24" height="24">
+      <span>Sistema de Obras</span>
+    </div>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="obras.html" class="active">Obras</a>
+      <a href="relatorios.html">Relatórios</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">Obras</div>
+      <div class="toolbar">
+        <input type="search" placeholder="Buscar por cliente, obra...">
+        <select>
+          <option>Status: todos</option>
+          <option>Planejada</option>
+          <option>Em andamento</option>
+          <option>Concluída</option>
+          <option>Suspensa</option>
+        </select>
+        <button onclick="window.location='obra-detalhe.html'">Nova obra</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="card">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Obra</th>
+              <th>Status</th>
+              <th>Início</th>
+              <th>Previsão</th>
+              <th>Orçamento</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="obras-tbody">
+            <!-- preenchido via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/js/obras.js"></script>
+</body>
+</html>

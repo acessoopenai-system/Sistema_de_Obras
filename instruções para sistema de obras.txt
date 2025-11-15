@@ -1,0 +1,723 @@
+# Visão Geral do Sistema de Obras
+Diagrama do Sistema de Obras
++----------------+          +----------------+          +----------------+
+|    Clientes    |          |     Obras      |          |    Etapas      |
++----------------+          +----------------+          +----------------+
++----------------+ | - Previsão fim | | - % concluído | | - Status | +----------------+ +----------------+ | | 1 | N +----------------+ | Orçamentos | +----------------+
+                      
+  +----------------+
+                               |
+                               | N
+                               | 1
+                        +----------------+
+                        |   Materiais    |
+                        +----------------+
+                        +----------------+
+
+Este diagrama mostra as principais entidades do sistema e suas relações:
+- Um cliente pode ter várias obras.
+- Cada obra possui várias etapas.
+- Cada etapa possui um orçamento que inclui materiais e mão de obra.
+- Materiais são vinculados aos orçamentos.
+
+Se desejar, posso ajudar a detalhar ainda mais esse diagrama ou criar diagramas específicos para outras partes do sistema.
+
+## 
+
+## 📋 Cadastros principais e campos sugeridos
+
+### 1. **Clientes**
+
+* Nome
+* Telefone / Email
+* Endereço da obra
+
+### 2. **Obras**
+
+* Nome da obra
+* Cliente vinculado
+* Localização
+* Data de início / previsão de término
+* Status (planejada, em andamento, concluída)
+
+### 3. **Etapas da obra**
+
+Cada obra pode ter várias etapas (fundação, alvenaria, cobertura, acabamento). Campos:
+
+* Nome da etapa (ex.: Fundação)
+* Metragem (m² ou m³)
+* Prazo estimado (dias)
+* Equipe responsável
+* Percentual concluído
+
+### 4. **Materiais**
+
+* Nome do material (cimento, tijolo, areia, telha, etc.)
+* Unidade de medida (kg, saco, m², m³, unidade)
+* Preço unitário (atualizável)
+* Fornecedor (opcional)
+
+### 5. **Orçamentos**
+
+* Obra vinculada
+* Etapa vinculada
+* Lista de materiais (quantidade × preço unitário)
+* Mão de obra (horas × valor hora)
+* Valor total da etapa
+* Valor acumulado da obra
+
+---
+
+## 🧮 Cálculos automáticos que o sistema pode fazer
+
+* **Materiais por metragem**:\
+  Ex.: 1 m² de alvenaria = 20 tijolos + 5 kg de cimento → o sistema multiplica pela metragem informada.
+
+* **Horas trabalhadas por metragem**:\
+  Ex.: 1 m² de fundação = 2 horas de pedreiro → o sistema multiplica pela metragem.
+
+* **Atualização de preços**:\
+  Se você mudar o preço do cimento, todos os orçamentos futuros já usam o novo valor.
+
+* **Orçamento por etapas**:\
+  O sistema soma materiais + mão de obra de cada etapa → gera relatório parcial e total.
+
+---
+
+## 🎯 Usabilidade (como o usuário interage)
+
+* **Dashboard inicial**: lista das obras em andamento, com status e custo acumulado.
+* **Cadastro rápido**: formulários simples para adicionar clientes, obras e materiais.
+* **Orçamento automático**: você informa metragem e etapa → o sistema calcula materiais e horas.
+* **Atualização de preços**: tela de “Materiais” onde você altera valores unitários.
+* **Relatórios**: exportar orçamento por etapa ou obra completa em PDF/Excel.
+
+---
+
+## 🔑 Exemplo prático de fluxo
+
+1. Você cadastra a obra “Casa João”.
+2. Cria a etapa “Fundação” → informa metragem (50 m²).
+3. O sistema consulta a tabela de composição (ex.: 50 m² = 100 sacos de cimento + 100 horas de pedreiro).
+4. Multiplica pelos preços atuais → gera o orçamento da fundação.
+5. Você repete para alvenaria, telhado, acabamento.
+6. O sistema mostra o **orçamento total da obra** e também **por etapa**.
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Protótipo visual do sistema de obras (HTML/CSS/JS) com estrutura de pastas
+Abaixo está um protótipo estático para você visualizar a interface e os campos principais do sistema. Inclui um layout de dashboard, listagem de obras, formulário de cadastro/edição, etapas, materiais e orçamento, além de uma estrutura simples de pastas para organizar o projeto.
+________________________________________
+Estrutura de pastas sugerida
+sistema-obras/
+├─ index.html
+├─ obras.html
+├─ obra-detalhe.html
+├─ relatorios.html
+├─ assets/
+│  ├─ css/
+│  │  ├─ base.css
+│  │  ├─ layout.css
+│  │  └─ components.css
+│  ├─ js/
+│  │  ├─ main.js
+│  │  ├─ obras.js
+│  │  └─ ui.js
+│  └─ img/
+│     ├─ logo.svg
+│     └─ placeholders/
+└─ data/
+   └─ mock.json
+•	index.html: Dashboard inicial e visão geral.
+•	obras.html: Listagem e filtros de obras.
+•	obra-detalhe.html: Formulários de dados da obra (cliente, endereço, cronograma, etapas, materiais, orçamento, anexos).
+•	relatorios.html: Relatórios e exportações.
+•	assets/css: Estilos base, layout e componentes.
+•	assets/js: Scripts gerais, lógica da tela de obras e utilidades de UI.
+•	data/mock.json: Dados de exemplo para protótipo.
+________________________________________
+Base de estilos (assets/css/base.css)
+:root {
+  --bg: #0f1216;
+  --panel: #171a20;
+  --muted: #8a93a3;
+  --text: #eef2f7;
+  --primary: #5aa9e6;
+  --accent: #7bd389;
+  --danger: #e67373;
+  --warning: #e6b85a;
+  --border: #2a2f38;
+  --shadow: 0 8px 24px rgba(0,0,0,0.3);
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background: var(--bg); color: var(--text);
+}
+a { color: var(--primary); text-decoration: none; }
+input, select, textarea {
+  width: 100%; padding: 10px 12px; border-radius: 8px;
+  border: 1px solid var(--border); background: #12161c; color: var(--text);
+}
+button {
+  padding: 10px 14px; border: 0; border-radius: 8px; cursor: pointer;
+  background: var(--primary); color: white; box-shadow: var(--shadow);
+}
+button.ghost { background: transparent; border: 1px solid var(--border); color: var(--text); }
+button.success { background: var(--accent); }
+button.danger { background: var(--danger); }
+.badge { padding: 4px 10px; border-radius: 999px; font-size: 12px; }
+.card {
+  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 16px;
+}
+.grid { display: grid; gap: 16px; }
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 12px; border-bottom: 1px solid var(--border); text-align: left; }
+.table th { color: var(--muted); font-weight: 600; }
+.toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.label { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+.section-title { font-weight: 600; margin: 0 0 8px; }
+________________________________________
+Layout (assets/css/layout.css)
+.app {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  height: 100vh;
+}
+
+.sidebar {
+  background: #0c0f13; border-right: 1px solid var(--border); padding: 18px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.sidebar .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.sidebar nav a {
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; color: var(--text);
+}
+.sidebar nav a.active, .sidebar nav a:hover { background: var(--panel); }
+
+.main {
+  display: grid; grid-template-rows: 64px 1fr; overflow: hidden;
+}
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px; border-bottom: 1px solid var(--border); background: #0c0f13;
+}
+.content { padding: 20px; overflow: auto; }
+.page-title { font-size: 20px; font-weight: 600; }
+________________________________________
+Componentes (assets/css/components.css)
+.kpi {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+}
+.kpi .item { padding: 16px; }
+.kpi .value { font-size: 22px; font-weight: 700; }
+.kpi .label { color: var(--muted); }
+
+.tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--border); }
+.tabs button { background: transparent; color: var(--text); }
+.tabs button.active { border-bottom: 2px solid var(--primary); }
+
+.form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.form-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.section { margin-bottom: 18px; }
+________________________________________
+Dashboard (index.html)
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Sistema de Obras — Dashboard</title>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="assets/img/logo.svg" alt="Logo" width="24" height="24">
+      <span>Sistema de Obras</span>
+    </div>
+    <nav>
+      <a href="index.html" class="active">Dashboard</a>
+      <a href="obras.html">Obras</a>
+      <a href="relatorios.html">Relatórios</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">Dashboard</div>
+      <div class="toolbar">
+        <input type="search" placeholder="Buscar...">
+        <button class="ghost">Notificações</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="kpi">
+        <div class="card item">
+          <div class="label">Obras em andamento</div>
+          <div class="value">12</div>
+        </div>
+        <div class="card item">
+          <div class="label">Obras concluídas</div>
+          <div class="value">34</div>
+        </div>
+        <div class="card item">
+          <div class="label">Custo acumulado (mês)</div>
+          <div class="value">R$ 482.300</div>
+        </div>
+        <div class="card item">
+          <div class="label">Etapas atrasadas</div>
+          <div class="value"><span class="badge" style="background: #2c1d1d;">5</span></div>
+        </div>
+      </div>
+
+      <div class="grid" style="grid-template-columns: 2fr 1fr;">
+        <div class="card">
+          <h3 class="section-title">Cronograma geral</h3>
+          <p class="label">Linha do tempo com marcos principais das obras.</p>
+          <div class="grid" style="grid-template-columns: repeat(4,1fr);">
+            <div class="card"><div class="label">Fundação</div><div>Concluída</div></div>
+            <div class="card"><div class="label">Estrutura</div><div>Em andamento</div></div>
+            <div class="card"><div class="label">Instalações</div><div>Atrasada</div></div>
+            <div class="card"><div class="label">Acabamento</div><div>Prevista</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="section-title">Alertas</h3>
+          <ul>
+            <li>Obra #018 — Etapa “Instalações Elétricas” atrasada</li>
+            <li>Obra #011 — Custo ultrapassou orçamento em 8%</li>
+            <li>Fornecedor “Betoneira Sul” — Entrega atrasada</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
+________________________________________
+Listagem de obras (obras.html)
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Sistema de Obras — Obras</title>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="assets/img/logo.svg" alt="Logo" width="24" height="24">
+      <span>Sistema de Obras</span>
+    </div>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="obras.html" class="active">Obras</a>
+      <a href="relatorios.html">Relatórios</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">Obras</div>
+      <div class="toolbar">
+        <input type="search" placeholder="Buscar por cliente, obra...">
+        <select>
+          <option>Status: todos</option>
+          <option>Planejada</option>
+          <option>Em andamento</option>
+          <option>Concluída</option>
+          <option>Suspensa</option>
+        </select>
+        <button onclick="window.location='obra-detalhe.html'">Nova obra</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="card">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Obra</th>
+              <th>Status</th>
+              <th>Início</th>
+              <th>Previsão</th>
+              <th>Orçamento</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="obras-tbody">
+            <!-- preenchido via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/js/obras.js"></script>
+</body>
+</html>
+________________________________________
+Detalhe da obra e formulários (obra-detalhe.html)
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Sistema de Obras — Detalhe da Obra</title>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="assets/img/logo.svg" alt="Logo" width="24" height="24">
+      <span>Sistema de Obras</span>
+    </div>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="obras.html" class="active">Obras</a>
+      <a href="relatorios.html">Relatórios</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">Obra #018 — Residencial Jardim</div>
+      <div class="toolbar">
+        <button class="ghost" onclick="history.back()">Voltar</button>
+        <button class="success">Salvar</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="tabs">
+        <button class="active" data-tab="dados">Dados</button>
+        <button data-tab="etapas">Etapas</button>
+        <button data-tab="materiais">Materiais</button>
+        <button data-tab="orcamento">Orçamento</button>
+        <button data-tab="anexos">Anexos</button>
+      </div>
+
+      <section id="tab-dados" class="section card">
+        <h3 class="section-title">Dados da obra e cliente</h3>
+        <div class="form-grid">
+          <div>
+            <div class="label">Cliente</div>
+            <input type="text" placeholder="Nome do cliente">
+          </div>
+          <div>
+            <div class="label">Documento</div>
+            <input type="text" placeholder="CPF/CNPJ">
+          </div>
+          <div>
+            <div class="label">Telefone</div>
+            <input type="text" placeholder="(DDD) 00000-0000">
+          </div>
+          <div>
+            <div class="label">E-mail</div>
+            <input type="email" placeholder="email@cliente.com.br">
+          </div>
+        </div>
+
+        <h4 class="section-title">Endereço da obra</h4>
+        <div class="form-grid">
+          <div>
+            <div class="label">Rua</div>
+            <input type="text" placeholder="Rua / Av.">
+          </div>
+          <div>
+            <div class="label">Número</div>
+            <input type="text" placeholder="Número">
+          </div>
+          <div>
+            <div class="label">Bairro</div>
+            <input type="text" placeholder="Bairro">
+          </div>
+          <div>
+            <div class="label">Cidade</div>
+            <input type="text" placeholder="Cidade">
+          </div>
+          <div>
+            <div class="label">Estado</div>
+            <input type="text" placeholder="PE">
+          </div>
+          <div>
+            <div class="label">CEP</div>
+            <input type="text" placeholder="00000-000">
+          </div>
+        </div>
+
+        <h4 class="section-title">Cronograma</h4>
+        <div class="form-grid-3">
+          <div>
+            <div class="label">Data de início</div>
+            <input type="date">
+          </div>
+          <div>
+            <div class="label">Previsão de término</div>
+            <input type="date">
+          </div>
+          <div>
+            <div class="label">Status</div>
+            <select>
+              <option>Planejada</option>
+              <option selected>Em andamento</option>
+              <option>Concluída</option>
+              <option>Suspensa</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section id="tab-etapas" class="section card" style="display:none;">
+        <h3 class="section-title">Etapas</h3>
+        <div class="toolbar">
+          <input type="text" placeholder="Nome da etapa">
+          <select>
+            <option>Planejada</option><option>Em andamento</option><option>Concluída</option><option>Atrasada</option>
+          </select>
+          <input type="date" placeholder="Previsão">
+          <button>Adicionar etapa</button>
+        </div>
+        <table class="table">
+          <thead><tr><th>Etapa</th><th>Status</th><th>Início</th><th>Fim</th><th>Responsável</th><th>Ações</th></tr></thead>
+          <tbody>
+            <tr><td>Fundação</td><td>Concluída</td><td>01/08</td><td>20/08</td><td>Equipe A</td>
+              <td><button class="ghost">Editar</button> <button class="danger">Excluir</button></td></tr>
+            <tr><td>Estrutura</td><td>Em andamento</td><td>21/08</td><td>—</td><td>Equipe B</td>
+              <td><button class="ghost">Editar</button> <button class="danger">Excluir</button></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="tab-materiais" class="section card" style="display:none;">
+        <h3 class="section-title">Materiais</h3>
+        <div class="toolbar">
+          <input type="text" placeholder="Descrição">
+          <input type="number" placeholder="Quantidade">
+          <input type="text" placeholder="Unidade (m³, kg, un)">
+          <input type="number" placeholder="Preço unitário (R$)">
+          <button>Adicionar material</button>
+        </div>
+        <table class="table">
+          <thead><tr><th>Material</th><th>Qtd</th><th>Un.</th><th>Preço unit.</th><th>Fornecedor</th><th>Ações</th></tr></thead>
+          <tbody>
+            <tr><td>Cimento CP II</td><td>120</td><td>saco</td><td>34,90</td><td>Cimentos PE</td>
+              <td><button class="ghost">Editar</button> <button class="danger">Excluir</button></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="tab-orcamento" class="section card" style="display:none;">
+        <h3 class="section-title">Orçamento</h3>
+        <div class="grid" style="grid-template-columns: 2fr 1fr;">
+          <div>
+            <table class="table">
+              <thead><tr><th>Item</th><th>Categoria</th><th>Qtd</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td>Mão de obra</td><td>Serviços</td><td>—</td><td>R$ 120.000</td></tr>
+                <tr><td>Materiais</td><td>Insumos</td><td>—</td><td>R$ 220.000</td></tr>
+                <tr><td>Equipamentos</td><td>Locação</td><td>—</td><td>R$ 48.000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <div class="label">Total previsto</div>
+            <div style="font-size:24px; font-weight:700;">R$ 388.000</div>
+            <div class="label" style="margin-top:10px;">Gasto realizado</div>
+            <div>R$ 142.300</div>
+            <div class="label" style="margin-top:10px;">Variação</div>
+            <div class="badge" style="background:#223018;">-</div>
+            <button style="margin-top:12px;">Exportar PDF</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="tab-anexos" class="section card" style="display:none;">
+        <h3 class="section-title">Anexos</h3>
+        <div class="toolbar">
+          <button class="ghost">Upload de arquivo</button>
+        </div>
+        <ul>
+          <li>Planta baixa — 12/08</li>
+          <li>ART — 14/08</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/ui.js"></script>
+</body>
+</html>
+________________________________________
+Relatórios (relatorios.html)
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Sistema de Obras — Relatórios</title>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="assets/img/logo.svg" alt="Logo" width="24" height="24">
+      <span>Sistema de Obras</span>
+    </div>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="obras.html">Obras</a>
+      <a href="relatorios.html" class="active">Relatórios</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">Relatórios</div>
+      <div class="toolbar">
+        <select>
+          <option>Período: Mês atual</option>
+          <option>Últimos 3 meses</option>
+          <option>Últimos 12 meses</option>
+        </select>
+        <button>Gerar</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="card">
+        <h3 class="section-title">Resumo financeiro</h3>
+        <table class="table">
+          <thead><tr><th>Obra</th><th>Previsto</th><th>Realizado</th><th>Variação</th></tr></thead>
+          <tbody>
+            <tr><td>Residencial Jardim</td><td>R$ 388.000</td><td>R$ 142.300</td><td>-</td></tr>
+            <tr><td>Comercial Centro</td><td>R$ 520.000</td><td>R$ 210.900</td><td>-</td></tr>
+          </tbody>
+        </table>
+        <div class="toolbar" style="margin-top:12px;">
+          <button>Exportar PDF</button>
+          <button class="ghost">Exportar CSV</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
+________________________________________
+Scripts de exemplo
+assets/js/ui.js
+// Tabs simples na página de detalhe da obra
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('.tabs button');
+  const sections = {
+    dados: document.getElementById('tab-dados'),
+    etapas: document.getElementById('tab-etapas'),
+    materiais: document.getElementById('tab-materiais'),
+    orcamento: document.getElementById('tab-orcamento'),
+    anexos: document.getElementById('tab-anexos'),
+  };
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      Object.values(sections).forEach(sec => sec.style.display = 'none');
+      const key = btn.dataset.tab;
+      sections[key].style.display = 'block';
+    });
+  });
+});
+assets/js/obras.js
+// Mock da lista de obras para preencher a tabela
+document.addEventListener('DOMContentLoaded', () => {
+  const tbody = document.getElementById('obras-tbody');
+  const data = [
+    { id: 18, cliente: 'João Silva', obra: 'Residencial Jardim', status: 'Em andamento', inicio: '01/08/2025', previsao: '15/12/2025', orcamento: 'R$ 388.000' },
+    { id: 11, cliente: 'Comercial PE Ltda', obra: 'Loja Centro', status: 'Planejada', inicio: '20/09/2025', previsao: '30/03/2026', orcamento: 'R$ 520.000' },
+    { id: 9, cliente: 'Maria Souza', obra: 'Casa Praia', status: 'Concluída', inicio: '05/01/2025', previsao: '20/06/2025', orcamento: 'R$ 260.000' },
+  ];
+
+  tbody.innerHTML = data.map(row => `
+    <tr>
+      <td>${row.id}</td>
+      <td>${row.cliente}</td>
+      <td>${row.obra}</td>
+      <td>${row.status}</td>
+      <td>${row.inicio}</td>
+      <td>${row.previsao}</td>
+      <td>${row.orcamento}</td>
+      <td>
+        <button class="ghost" onclick="window.location='obra-detalhe.html'">Abrir</button>
+        <button class="danger">Excluir</button>
+      </td>
+    </tr>
+  `).join('');
+});
+assets/js/main.js
+// Espaço para utilidades globais (ex.: tema, notificações simples)
+console.log('Sistema de Obras — protótipo carregado');
+________________________________________
+Dicas para rodar localmente
+•	Passo 1: Crie as pastas e arquivos conforme a estrutura acima.
+•	Passo 2: Abra o arquivo index.html no navegador.
+•	Opcional: Use um servidor estático (como Live Server no VS Code) para navegar entre as páginas.
+________________________________________
+Próximos ajustes que posso criar
+•	Formulários com validação: Máscaras de CPF/CNPJ, telefone e CEP.
+•	Cálculos de orçamento dinâmicos: Somatórios e variação automática.
+•	Filtros avançados na listagem: Por status, período e cliente.
+•	Componentes reutilizáveis: Modal para adicionar etapa/material, toasts de sucesso/erro.
+•	Tema claro/escuro: Alternância persistente via localStorage.
+Quer que eu adapte os campos para sua realidade (tipos de obra, categorias de materiais, etapas padrão) ou incluir o seu logo e paleta de cores?
+

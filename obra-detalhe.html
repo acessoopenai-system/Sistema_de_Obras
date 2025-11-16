@@ -112,30 +112,55 @@
               </form>
             </div>
             <div class="tab-pane" id="etapas">
+              <div class="toolbar">
+                <form class="form-inline">
+                  <input type="text" placeholder="Nova etapa">
+                  <button class="primary">Adicionar Etapa</button>
+                </form>
+              </div>
               <div class="etapas-list">
                 <div class="etapa-item">
                   <span class="etapa-icon">✔</span>
                   <span class="etapa-title">Fundação</span>
                   <span class="status status--concluida">Concluída</span>
+                  <div class="etapa-actions">
+                    <button>Editar</button>
+                    <button class="danger">Excluir</button>
+                  </div>
                 </div>
                 <div class="etapa-item">
                   <span class="etapa-icon">⏳</span>
                   <span class="etapa-title">Estrutura</span>
                   <span class="status status--andamento">Em andamento</span>
+                  <div class="etapa-actions">
+                    <button>Editar</button>
+                    <button class="danger">Excluir</button>
+                  </div>
                 </div>
                 <div class="etapa-item">
                   <span class="etapa-icon">⚠</span>
                   <span class="etapa-title">Instalações</span>
                   <span class="status status--atrasada">Atrasada</span>
+                  <div class="etapa-actions">
+                    <button>Editar</button>
+                    <button class="danger">Excluir</button>
+                  </div>
                 </div>
                 <div class="etapa-item">
                   <span class="etapa-icon"></span>
                   <span class="etapa-title">Acabamento</span>
                   <span class="status">Pendente</span>
+                  <div class="etapa-actions">
+                    <button>Editar</button>
+                    <button class="danger">Excluir</button>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="tab-pane" id="materiais">
+              <div class="toolbar">
+                <button class="primary">Adicionar Material</button>
+              </div>
               <table class="table">
                 <thead>
                   <tr>
@@ -145,6 +170,7 @@
                     <th>Fornecedor</th>
                     <th>Custo unitário</th>
                     <th>Custo total</th>
+                    <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -155,6 +181,10 @@
                     <td data-label="Fornecedor">Casa do Construtor</td>
                     <td data-label="Custo unitário">R$ 50,00</td>
                     <td data-label="Custo total">R$ 5.000,00</td>
+                    <td data-label="Ações">
+                      <button>Editar</button>
+                      <button class="danger">Excluir</button>
+                    </td>
                   </tr>
                   <tr>
                     <td data-label="Nome do material">Areia</td>
@@ -163,6 +193,10 @@
                     <td data-label="Fornecedor">Depósito São João</td>
                     <td data-label="Custo unitário">R$ 100,00</td>
                     <td data-label="Custo total">R$ 2.000,00</td>
+                    <td data-label="Ações">
+                      <button>Editar</button>
+                      <button class="danger">Excluir</button>
+                    </td>
                   </tr>
                   <tr>
                     <td data-label="Nome do material">Tijolo</td>
@@ -171,11 +205,15 @@
                     <td data-label="Fornecedor">Cerâmica Tatuí</td>
                     <td data-label="Custo unitário">R$ 0,80</td>
                     <td data-label="Custo total">R$ 4.000,00</td>
+                    <td data-label="Ações">
+                      <button>Editar</button>
+                      <button class="danger">Excluir</button>
+                    </td>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr class="table-total">
-                    <td colspan="5">Total</td>
+                    <td colspan="6">Total</td>
                     <td>R$ 11.000,00</td>
                   </tr>
                 </tfoot>

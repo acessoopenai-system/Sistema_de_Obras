@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Sistema de Obras — Detalhes da Obra</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="assets/img/logo.svg" alt="Logo" width="24" height="24">
+      <span>Sistema de Obras</span>
+    </div>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="obras.html" class="active">Obras</a>
+      <a href="relatorios.html">Relatórios</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">Obra #018 — Residencial Jardim</div>
+      <div class="toolbar">
+        <button onclick="window.location='obras.html'">Voltar</button>
+        <button class="primary" id="save-button">Salvar</button>
+      </div>
+    </div>
+
+    <div class="alert-container">
+      <div class="alert alert--success" id="save-alert" style="display: none;">
+        Obra salva com sucesso!
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="container">
+        <div class="tabs">
+          <nav class="tab-nav">
+            <button class="tab-button active" data-tab="dados">Dados</button>
+            <button class="tab-button" data-tab="etapas">Etapas</button>
+            <button class="tab-button" data-tab="materiais">Materiais</button>
+            <button class="tab-button" data-tab="orcamento">Orçamento</button>
+            <button class="tab-button" data-tab="anexos">Anexos</button>
+          </nav>
+          <div class="tab-content">
+            <div class="tab-pane active" id="dados">
+              <form class="form-grid" novalidate>
+                <h3 class="form-section-title">Dados da obra e cliente</h3>
+                <div class="form-group">
+                  <label for="cliente">Cliente</label>
+                  <input type="text" id="cliente" placeholder="Nome do cliente" required>
+                </div>
+                <div class="form-group">
+                  <label for="documento">Documento</label>
+                  <input type="text" id="documento" placeholder="CPF/CNPJ" required>
+                </div>
+                <div class="form-group">
+                  <label for="telefone">Telefone</label>
+                  <input type="tel" id="telefone" placeholder="(DDD) 00000-0000">
+                </div>
+                <div class="form-group">
+                  <label for="email">E-mail</label>
+                  <input type="email" id="email" placeholder="email@cliente.com.br" required>
+                </div>
+
+                <h3 class="form-section-title">Endereço da obra</h3>
+                <div class="form-group">
+                  <label for="rua">Rua</label>
+                  <input type="text" id="rua" placeholder="Rua / Av.">
+                </div>
+                <div class="form-group">
+                  <label for="numero">Número</label>
+                  <input type="text" id="numero" placeholder="Número">
+                </div>
+                <div class="form-group">
+                  <label for="bairro">Bairro</label>
+                  <input type="text" id="bairro" placeholder="Bairro">
+                </div>
+                <div class="form-group">
+                  <label for="cidade">Cidade</label>
+                  <input type="text" id="cidade" placeholder="Cidade">
+                </div>
+                <div class="form-group">
+                  <label for="estado">Estado</label>
+                  <input type="text" id="estado" placeholder="PE">
+                </div>
+                <div class="form-group">
+                  <label for="cep">CEP</label>
+                  <input type="text" id="cep" placeholder="00000-000">
+                </div>
+
+                <h3 class="form-section-title">Cronograma</h3>
+                <div class="form-group">
+                  <label for="data-inicio">Data de início</label>
+                  <input type="date" id="data-inicio">
+                </div>
+                <div class="form-group">
+                  <label for="previsao-termino">Previsão de término</label>
+                  <input type="date" id="previsao-termino">
+                </div>
+                <div class="form-group">
+                  <label for="status">Status</label>
+                  <select id="status">
+                    <option>Em andamento</option>
+                    <option>Concluída</option>
+                    <option>Atrasada</option>
+                    <option>Pendente</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="tab-pane" id="etapas">
+              <div class="etapas-list">
+                <div class="etapa-item">
+                  <span class="etapa-icon">✔</span>
+                  <span class="etapa-title">Fundação</span>
+                  <span class="status status--concluida">Concluída</span>
+                </div>
+                <div class="etapa-item">
+                  <span class="etapa-icon">⏳</span>
+                  <span class="etapa-title">Estrutura</span>
+                  <span class="status status--andamento">Em andamento</span>
+                </div>
+                <div class="etapa-item">
+                  <span class="etapa-icon">⚠</span>
+                  <span class="etapa-title">Instalações</span>
+                  <span class="status status--atrasada">Atrasada</span>
+                </div>
+                <div class="etapa-item">
+                  <span class="etapa-icon"></span>
+                  <span class="etapa-title">Acabamento</span>
+                  <span class="status">Pendente</span>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="materiais">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Nome do material</th>
+                    <th>Quantidade</th>
+                    <th>Unidade</th>
+                    <th>Fornecedor</th>
+                    <th>Custo unitário</th>
+                    <th>Custo total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td data-label="Nome do material">Cimento</td>
+                    <td data-label="Quantidade">100</td>
+                    <td data-label="Unidade">Sacos</td>
+                    <td data-label="Fornecedor">Casa do Construtor</td>
+                    <td data-label="Custo unitário">R$ 50,00</td>
+                    <td data-label="Custo total">R$ 5.000,00</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Nome do material">Areia</td>
+                    <td data-label="Quantidade">20</td>
+                    <td data-label="Unidade">m³</td>
+                    <td data-label="Fornecedor">Depósito São João</td>
+                    <td data-label="Custo unitário">R$ 100,00</td>
+                    <td data-label="Custo total">R$ 2.000,00</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Nome do material">Tijolo</td>
+                    <td data-label="Quantidade">5000</td>
+                    <td data-label="Unidade">Unidades</td>
+                    <td data-label="Fornecedor">Cerâmica Tatuí</td>
+                    <td data-label="Custo unitário">R$ 0,80</td>
+                    <td data-label="Custo total">R$ 4.000,00</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr class="table-total">
+                    <td colspan="5">Total</td>
+                    <td>R$ 11.000,00</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="tab-pane" id="orcamento">
+              <div class="orcamento-layout">
+                <div class="orcamento-main">
+                  <h2 class="section-title">Orçamento</h2>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Categoria</th>
+                        <th>Qtd</th>
+                        <th>Valor</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Mão de obra</td>
+                        <td>Serviços</td>
+                        <td>—</td>
+                        <td>R$ 120.000</td>
+                      </tr>
+                      <tr>
+                        <td>Materiais</td>
+                        <td>Insumos</td>
+                        <td>—</td>
+                        <td>R$ 220.000</td>
+                      </tr>
+                      <tr>
+                        <td>Equipamentos</td>
+                        <td>Locação</td>
+                        <td>—</td>
+                        <td>R$ 48.000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <aside class="orcamento-summary">
+                  <div class="card">
+                    <div class="summary-item">
+                      <span>Total previsto</span>
+                      <strong class="card-value">R$ 388.000</strong>
+                    </div>
+                    <div class="summary-item">
+                      <span>Gasto realizado</span>
+                      <strong>R$ 142.300</strong>
+                    </div>
+                    <div class="summary-item">
+                      <span>Variação</span>
+                      <div class="progress-bar">
+                        <div class="progress" style="width: 36%;"></div>
+                      </div>
+                    </div>
+                    <button class="primary full-width">Exportar PDF</button>
+                  </div>
+                </aside>
+              </div>
+            </div>
+            <div class="tab-pane" id="anexos">
+              <div class="anexos-grid">
+                <div class="anexo-item">
+                  <span class="anexo-icon">📄</span>
+                  <div class="anexo-info">
+                    <strong>Contrato.pdf</strong>
+                    <span>Documento</span>
+                  </div>
+                  <span class="anexo-date">15/08/2025</span>
+                </div>
+                <div class="anexo-item">
+                  <span class="anexo-icon">🖼️</span>
+                  <div class="anexo-info">
+                    <strong>Planta_baixa.png</strong>
+                    <span>Imagem</span>
+                  </div>
+                  <span class="anexo-date">20/08/2025</span>
+                </div>
+                <div class="anexo-item anexo-item-recent">
+                  <span class="anexo-icon">💰</span>
+                  <div class="anexo-info">
+                    <strong>NF_cimento.pdf</strong>
+                    <span>Nota Fiscal</span>
+                  </div>
+                  <span class="anexo-date">10/11/2025</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/js/ui.js"></script>
+</body>
+</html>

@@ -338,10 +338,51 @@ body {
   }
 }
 
+/* Toolbar */
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--space-5);
+}
+
+.form-inline {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Etapas Actions */
+.etapa-actions {
+  margin-left: auto;
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Table Actions */
+.table .danger {
+  background-color: #ffe3e3;
+  color: #c63c3c;
+}
+
+button {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  background: var(--white);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button.primary {
+  background: var(--primary-green);
+  color: var(--white);
+  border-color: var(--primary-green);
+}
+
 .orcamento-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: var(--space-6);
+  align-items: start;
 }
 
 .summary-item {
